@@ -1,0 +1,22 @@
+{
+  "name": "bench-keen",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-based multiplayer side-scroller in the style of Commander Keen 1 (Keen Dreams)",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tools/check-art.js && node tools/simtest.js && node tools/bot2.js && node tools/demotest.js",
+    "playtest": "node tools/playtest.js",
+    "multiplayer": "node tools/multiplayer.js",
+    "demoplay": "node tools/demoplay.js",
+    "record": "node tools/record-sample.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "ws": "^8.22.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.0"
+  }
+}

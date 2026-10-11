@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BENCH KEEN — Recordings</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: #000; color: #858585; font: 14px/1.6 monospace; padding: 24px; }
+  a { color: #55ffff; text-decoration: none; }
+  h1 { color: #55ff55; }
+  li { list-style: none; }
+  .size { color: #858585; }
+</style>
+</head>
+<body>
+<h1>RECORDINGS</h1>
+<p><a href="/">&larr; back to the game</a> &nbsp; Press <b>F9</b> in the game to save a recording.</p>
+<ul id="list">loading…</ul>
+<script>
+fetch('/api/demos').then((r) => r.json()).then((files) => {
+  const ul = document.getElementById('list');
+  ul.innerHTML = '';
+  if (!files.length) { ul.textContent = 'no recordings yet'; return; }
+  for (const f of files) {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '/?demo=' + encodeURIComponent(f.name);
+    a.textContent = f.name;
+    li.appendChild(a);
+    li.append(' ' + Math.round(f.bytes / 1024) + ' KB');
+    ul.appendChild(li);
+  }
+});
+</script>
+</body>
+</html>
