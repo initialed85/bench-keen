@@ -1,5 +1,24 @@
 # bench-keen
 
+Live: https://keen.dev.initialed85.cc — Express + `ws` on port 22222, running in
+`home-dev` (Argo CD app `keen`, manifests in
+`home-ops/clusters/dev/applications/keen`).
+
+## Ship it
+
+```sh
+./build-tag-and-push.sh      # nothing to compile, npm ci runs inside the image
+                             # -> initialed85/keen:latest and :<git-sha>
+```
+
+Success: `curl -s -o /dev/null -w "%{http_code}\n" https://keen.dev.initialed85.cc/` is
+200 and `kubectl --context home-dev -n keen logs deploy/keen --tail=5` shows
+`join KEEN id=…`.
+
+Trap: the client must dial `wss://` when the page is https (`public/js/game.js` picks the
+scheme from `location.protocol`); a hard-coded `ws://` is blocked as mixed content and
+the level renders without players.
+
 Running [Niko1221/Strata](https://github.com/Niko1221/Strata)
 
 ```shell

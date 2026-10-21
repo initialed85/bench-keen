@@ -106,7 +106,8 @@ async function startReplay(file) {
   state.replayLength = demo.inputs.length;
 }
 
-const socket = demoFile ? null : new WebSocket(`ws://${location.host}/ws`);
+const wsProto = location.protocol === "https:" ? "wss" : "ws";
+const socket = demoFile ? null : new WebSocket(`${wsProto}://${location.host}/ws`);
 
 if (socket) {
 socket.onopen = () => { state.connected = true; };
